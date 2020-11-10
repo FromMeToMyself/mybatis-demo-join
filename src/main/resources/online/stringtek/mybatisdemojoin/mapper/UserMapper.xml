@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.stringtek.mybatisdemojoin.mapper.UserMapper">
+
+    <resultMap id="userWithOrderMap" type="User">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <collection property="orderList" ofType="Order">
+            <id property="id" column="order_id"/>
+            <result property="orderCode" column="order_code"/>
+            <result property="orderName" column="order_name"/>
+            <result property="totalAmount" column="total_amount"/>
+        </collection>
+    </resultMap>
+    <resultMap id="userWithRoleMap" type="User">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <collection property="roleList" ofType="Role">
+            <id property="id" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+            <result property="roleDesc" column="role_desc"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAllWithOrder" resultMap="userWithOrderMap">
+        select u.*,o.id as order_id,order_code,order_name,total_amount from mybatis_demo.sys_user u
+        left join mybatis_demo.shop_order o
+        on o.owner_id=u.id
+    </select>
+    <select id="findAllWithRole" resultMap="userWithRoleMap">
+        select u.*,r.id as role_id,role_name,role_desc from mybatis_demo.sys_user u
+        left join mybatis_demo.sys_user_role ur
+        on u.id=ur.user_id
+        left join mybatis_demo.sys_role r
+        on ur.role_id=r.id
+    </select>
+    <select id="findAll" resultType="User">
+        select * from mybatis_demo.sys_user
+    </select>
+</mapper>
