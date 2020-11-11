@@ -11,6 +11,12 @@
     <typeAliases>
         <package name="online.stringtek.mybatisdemojoin.pojo.entity"/>
     </typeAliases>
+    <plugins>
+        <plugin interceptor="online.stringtek.mybatisdemojoin.plugin.MyPlugin">
+            <property name="a" value="aaa"/>
+            <property name="b" value="bbb"/>
+        </plugin>
+    </plugins>
     <environments default="dev">
         <environment id="dev">
             <transactionManager type="JDBC" />
@@ -22,8 +28,10 @@
             </dataSource>
         </environment>
     </environments>
+
     <mappers>
         <package name="online.stringtek.mybatisdemojoin.mapper"/>
     </mappers>
+
     
 </configuration>

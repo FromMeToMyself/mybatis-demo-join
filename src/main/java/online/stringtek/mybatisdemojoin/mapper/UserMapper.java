@@ -8,5 +8,4 @@ public interface UserMapper {
     List<User> findAllWithOrder();
     List<User> findAllWithRole();
     List<User> findAll();
-//    void update(User user);
 }
